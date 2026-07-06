@@ -151,6 +151,25 @@ export class GamePad {
             case "LT":
                 this.gamepadMapping[6] = mappedBbcKey;
                 break;
+
+            // Direct d-pad button remapping. The d-pad buttons (Gamepad-API
+            // button indices 12-15) default to the "snapper" keys set in the
+            // constructor and otherwise have no remap case, so a game whose
+            // keys aren't Z/X/:/? cannot map the d-pad from the URL. These four
+            // cases allow it, e.g. GP.D14=COMMA.
+            case "D12": // d-pad up
+                this.gamepadMapping[12] = mappedBbcKey;
+                break;
+            case "D13": // d-pad down
+                this.gamepadMapping[13] = mappedBbcKey;
+                break;
+            case "D14": // d-pad left
+                this.gamepadMapping[14] = mappedBbcKey;
+                break;
+            case "D15": // d-pad right
+                this.gamepadMapping[15] = mappedBbcKey;
+                break;
+
             default:
                 console.log("unknown gamepad key: " + gamepadKey);
         }
