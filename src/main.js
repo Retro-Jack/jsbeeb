@@ -2069,7 +2069,10 @@ function stop(debug) {
     const resizeCubMonitor = document.getElementById("cub-monitor");
     const resizeCubMonitorPic = document.getElementById("cub-monitor-pic");
     const borderReservedSize = parsedQuery.embed !== undefined ? 0 : 100;
-    const bottomReservedSize = parsedQuery.embed !== undefined ? 0 : 68;
+    // GenX-DOS-local layout tweak (see GENX-CHANGES.md): widened 68 → 120 so the
+    // CUB monitor doesn't fill the viewport edge-to-edge — leaves breathing room
+    // above/below for the sitewide wallpaper. Not upstreamed (it's our layout).
+    const bottomReservedSize = parsedQuery.embed !== undefined ? 0 : 120;
 
     function resizeTv() {
         // Get current display config (may change when display mode switches)

@@ -41,6 +41,29 @@ the analogue stick (Elite) keep the stick mapping instead.
 
 ---
 
+## Change 2 — monitor vertical inset (GenX-DOS-local, **not** upstreamed)
+
+**File:** `src/main.js`, `bottomReservedSize` in the CUB-monitor resize block.
+
+**What.** Widened the reserved vertical space from `68` to `120` pixels.
+
+**Why.** GenX-DOS paints a sitewide wallpaper behind the emulator and wants the
+CUB monitor to sit with breathing room above and below rather than filling the
+viewport edge-to-edge. This is purely our layout preference, so — unlike the
+d-pad remap — it is **not** offered upstream. It lives only on this fork's build
+branch (`main`); the upstream-PR branch (`gamepad-dpad-remap`) does not carry it.
+
+---
+
+## Branch layout
+
+- **`gamepad-dpad-remap`** — the d-pad remap (Change 1) alone, clean on top of
+  upstream, intended as an upstream pull request.
+- **`main`** — our build/vendor branch: upstream + Change 1 + Change 2 (and any
+  future GenX-local tweaks). **This is the branch we build and vendor from.**
+
+---
+
 ## Rebuilding and re-vendoring into GenX-DOS
 
 ```
