@@ -151,6 +151,27 @@ export class GamePad {
             case "LT":
                 this.gamepadMapping[6] = mappedBbcKey;
                 break;
+
+            // --- GenX-DOS addition (see GENX-CHANGES.md) ---
+            // Direct d-pad button remapping. The d-pad buttons (Gamepad-API
+            // button indices 12-15) default to the "snapper" keys set in the
+            // constructor and otherwise have no remap case, so a game whose
+            // keys aren't Z/X/:/? cannot put the correct keys on the d-pad.
+            // These four cases let a launch URL do it, e.g. GP.D14=COMMA.
+            case "D12": // d-pad up
+                this.gamepadMapping[12] = mappedBbcKey;
+                break;
+            case "D13": // d-pad down
+                this.gamepadMapping[13] = mappedBbcKey;
+                break;
+            case "D14": // d-pad left
+                this.gamepadMapping[14] = mappedBbcKey;
+                break;
+            case "D15": // d-pad right
+                this.gamepadMapping[15] = mappedBbcKey;
+                break;
+            // --- end GenX-DOS addition ---
+
             default:
                 console.log("unknown gamepad key: " + gamepadKey);
         }
