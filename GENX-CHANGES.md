@@ -6,7 +6,15 @@ This is a fork of Matt Godbolt's [jsbeeb](https://github.com/mattgodbolt/jsbeeb)
 need to make to jsbeeb lives here as **readable, rebuildable source** rather than
 as an ad-hoc edit to a shipped build.
 
-Forked from upstream at commit `7a2f543` (July 2026).
+Forked from upstream at commit `7a2f543` (jsbeeb 1.13.1, July 2026), and
+**rebased onto upstream `v1.14.0`** (31 July 2026).
+
+> **Thanks to Matt Godbolt** for being right on top of it. jsbeeb
+> [1.14.0](https://github.com/mattgodbolt/jsbeeb/releases/tag/v1.14.0) landed
+> [#704](https://github.com/mattgodbolt/jsbeeb/pull/704) — a workaround for a
+> Chrome 150 V8 bug that wedged the emulator — within a day of the regression
+> biting, and rebasing this fork straight onto it cleared the BBC freeze on
+> GenX-DOS with nothing more to do on our side. Much appreciated.
 
 ---
 
