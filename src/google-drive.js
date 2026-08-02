@@ -4,9 +4,6 @@ import { debounce, uint8ArrayToString } from "./utils.js";
 import { discFor } from "./fdc.js";
 
 const MIME_TYPE = "application/vnd.jsbeeb.disc-image";
-const CLIENT_ID = "356883185894-bhim19837nroivv18p0j25gecora60r5.apps.googleusercontent.com";
-const SCOPES = "https://www.googleapis.com/auth/drive.file";
-const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest";
 const FILE_FIELDS = "id,name,capabilities";
 const PARENT_FOLDER_NAME = "jsbeeb disc images";
 
@@ -24,27 +21,8 @@ export class GoogleDriveLoader {
     }
 
     async initialise() {
-        console.log("Creating GAPI");
-        await this._loadScript("https://apis.google.com/js/api.js");
-        console.log("Got GAPI, creating token client");
-        this.gapi = window.gapi;
-        await this._loadScript("https://accounts.google.com/gsi/client");
-        this.tokenClient = window.google.accounts.oauth2.initTokenClient({
-            client_id: CLIENT_ID,
-            scope: SCOPES,
-            error_callback: "", // defined later
-            callback: "", // defined later
-        });
-        console.log("Token client created, loading client");
-
-        await this.gapi.load("client", async () => {
-            console.log("Client loaded; initialising GAPI");
-            await this.gapi.client.init({ discoveryDocs: [DISCOVERY_DOC] });
-            console.log("GAPI initialised");
-            this.driveClient = this.gapi.client.drive;
-        });
-        console.log("Google Drive: available");
-        return true;
+        // GenX-DOS: Google Drive disc storage removed — no external Google API calls.
+        return false;
     }
 
     _loadScript(src) {

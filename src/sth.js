@@ -1,24 +1,11 @@
 "use strict";
 
-import * as utils from "./utils.js";
-
 const catalogUrl = "reclist.php?sort=name&filter=.zip";
-const sthArchive = "www.stairwaytohell.com/bbc/archive";
+const sthArchive = ""; // GenX-DOS: STH archive removed
 
-async function _fetchAndParseCatalog(url) {
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error("Network response was not ok");
-    }
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(await response.text(), "text/html");
-    const result = [];
-    doc.querySelectorAll("tr td:nth-child(3) a").forEach((link) => {
-        const href = link.getAttribute("href");
-        if (href.indexOf(".zip") > 0) result.push(href);
-    });
-    result.sort();
-    return result;
+async function _fetchAndParseCatalog(_url) {
+    // GenX-DOS: Stairway to Hell archive removed — no external fetch.
+    return [];
 }
 
 export class StairwayToHell {
@@ -46,16 +33,8 @@ export class StairwayToHell {
         if (this._onCat) this._onCat(this._catalog);
     }
 
-    async fetch(file) {
-        const name = this._baseUrl + file;
-        console.log("Loading ZIP from " + name);
-        const response = await fetch(name);
-        if (!response.ok) throw new Error("Network response was not ok");
-        try {
-            return (await utils.unzipDiscImage(new Uint8Array(await response.arrayBuffer()))).data;
-        } catch (error) {
-            console.error("Failed to fetch file:", error);
-            throw error;
-        }
+    async fetch(_file) {
+        // GenX-DOS: STH archive removed — no external fetch.
+        throw new Error("Stairway to Hell archive is disabled in GenX-DOS");
     }
 }

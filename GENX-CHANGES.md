@@ -63,6 +63,37 @@ branch (`main`); the upstream-PR branch (`gamepad-dpad-remap`) does not carry it
 
 ---
 
+## Change 3 — remove all external network calls (GenX-DOS-local, **not** upstreamed)
+
+**Files:** `src/utils.js`, `src/google-drive.js`, `src/sth.js`.
+
+**What.** Neutered every piece of jsbeeb that reaches out to a third-party
+server at runtime, so the built engine makes **zero external requests**:
+
+- `src/utils.js` — `noteEvent()` no longer calls `gtag(...)` (Google Analytics).
+  It keeps the `console.log`; the analytics fire is gone.
+- `src/google-drive.js` — `initialise()` is a no-op that returns `false`
+  (Google Drive "unavailable"). This removes the startup loads of
+  `apis.google.com/js/api.js` and `accounts.google.com/gsi/client`, and the
+  Drive OAuth flow. The `CLIENT_ID` / `SCOPES` / `DISCOVERY_DOC` constants (all
+  `*.googleapis.com` URLs) are blanked so no external URL survives even as a
+  dead string.
+- `src/sth.js` — the Stairway to Hell disc-archive loader no longer fetches:
+  `_fetchAndParseCatalog()` returns `[]` and `fetch()` throws. The
+  `www.stairwaytohell.com` base URL is blanked.
+
+**Why.** GenX-DOS's whole premise is **zero tracking, fully self-hosted, no
+external calls at runtime**. Discs ship inside each bundle, so the Google Drive
+and Stairway to Hell menus are already hidden on the site and Analytics is
+unwanted outright. Upstream jsbeeb legitimately uses all three on the public
+`bbc.xania.org` deploy, so this is **not** offered upstream — it lives only on
+this fork's build branch (`main`). A strict `Content-Security-Policy` on the
+GenX-DOS page is the belt-and-braces guarantee, but the source is now clean on
+its own: `grep -riE 'apis\.google|googleapis|stairwaytohell|gtag\(' src/`
+returns nothing but the neutered class name.
+
+---
+
 ## Branch layout
 
 - **`gamepad-dpad-remap`** — the d-pad remap (Change 1) alone, clean on top of
